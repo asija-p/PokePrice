@@ -1,9 +1,7 @@
-version: '3.9'
-
 services:
   influxdb:
     image: influxdb:2
-    container_name: influxdb
+    container_name: pokeprice-influx
     ports:
       - '8086:8086'
     volumes:
@@ -12,5 +10,19 @@ services:
       - .env
     restart: unless-stopped
 
+  postgres:
+    image: postgres:16
+    container_name: pokeprice-postgres
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
 volumes:
   influxdb-data:
+  postgres-data:

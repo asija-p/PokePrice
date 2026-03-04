@@ -43,10 +43,9 @@ setInterval(async () => {
 
   let spike = false;
 
-  // Roughly every ~10 seconds (3 iterations) with 40% chance
   if (iterationCounter % 3 === 0 && Math.random() < 0.4) {
     spike = true;
-    basePrice += 50 + Math.random() * 150; // spike magnitude
+    basePrice += 50 + Math.random() * 150;
   }
 
   const price = parseFloat(basePrice.toFixed(2));

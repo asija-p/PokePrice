@@ -70,15 +70,6 @@ export class CardsController {
 
   //pomocne funkcije
 
-  private validateMetric(metric: string) {
-    const allowedMetrics = ['price'];
-    if (!allowedMetrics.includes(metric) && metric !== 'price') {
-      throw new BadRequestException(
-        'Metrika mora biti price za Influx analitiku',
-      );
-    }
-  }
-
   private parseNumber(value: any, defaultValue: number): number {
     if (value === null || value === undefined) return defaultValue;
 
@@ -142,7 +133,6 @@ export class CardsController {
       from(bucket: "${process.env.INFLUX_BUCKET}")
         |> range(start: -${minutes}m)
         |> filter(fn: (r) => r._measurement == "card_prices" and r._field == "price")
-        // We group by both so we know WHICH source spiked
         |> group(columns: ["card_name", "source"]) 
         |> reduce(
             fn: (r, accumulator) => ({

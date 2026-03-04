@@ -36,6 +36,10 @@
         >
           <div class="text-xs font-black uppercase opacity-80">Moving Average</div>
 
+          <div class="text-sm opacity-80 mt-1">
+            Average price of last <span class="font-bold">{{ movingWindow }}</span> cards
+          </div>
+
           <div class="text-3xl font-black mt-2">
             ${{ analytics?.movingAverage | number: '1.2-2' }}
           </div>
@@ -75,35 +79,42 @@
       </div>
 
       <!-- Source Breakdown -->
-      <div class="grid md:grid-cols-2 gap-6 px-6 md:px-10 mt-6">
-        <div
-          *ngFor="
-            let chunk of [
-              analytics?.sourceAverages?.slice(0, 3),
-              analytics?.sourceAverages?.slice(3, 6),
-            ]
-          "
-          class="space-y-3"
-        >
+      <h2
+        class="text-[11px] font-black text-yellow-900 mb-6 px-6 md:px-10 uppercase tracking-[0.2em] opacity-70"
+      >
+        Average prices per source
+      </h2>
+      <div class="px-6 md:px-10 mt-6">
+        <div class="grid md:grid-cols-2 gap-6">
           <div
-            *ngFor="let source of chunk"
-            class="flex items-center justify-between bg-white px-6 py-4 rounded-2xl border border-yellow-100 shadow-sm min-w-[260px]"
+            *ngFor="
+              let chunk of [
+                analytics?.sourceAverages?.slice(0, 3),
+                analytics?.sourceAverages?.slice(3, 6),
+              ]
+            "
+            class="space-y-3"
           >
-            <div class="flex items-center gap-3">
-              <img
-                *ngIf="source?.source"
-                [src]="'/' + source.source.toLowerCase() + '.png'"
-                class="h-6 w-auto object-contain"
-                (error)="$any($event).target.style.display = 'none'"
-              />
+            <div
+              *ngFor="let source of chunk"
+              class="flex items-center justify-between bg-white px-6 py-4 rounded-2xl border border-yellow-100 shadow-sm min-w-[260px]"
+            >
+              <div class="flex items-center gap-3">
+                <img
+                  *ngIf="source?.source"
+                  [src]="'/' + source.source.toLowerCase() + '.png'"
+                  class="h-6 w-auto object-contain"
+                  (error)="$any($event).target.style.display = 'none'"
+                />
 
-              <div class="font-bold text-gray-800">
-                {{ source?.source }}
+                <div class="font-bold text-gray-800">
+                  {{ source?.source }}
+                </div>
               </div>
-            </div>
 
-            <div class="text-lg font-black text-gray-900">
-              ${{ source?._value | number: '1.2-2' }}
+              <div class="text-lg font-black text-gray-900">
+                ${{ source?._value | number: '1.2-2' }}
+              </div>
             </div>
           </div>
         </div>
