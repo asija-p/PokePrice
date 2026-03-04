@@ -33,6 +33,8 @@ za frontend:
 
 -u root od pokemon-dashbord odraditi ng serve (ukoliko pita da se dele podaci o ovom projektu sa Google, izabrati ne)
 
+---
+
 za podaci:
 
 -u backend poke-price\src\data odraditi node fetchCards.js
@@ -46,4 +48,5 @@ Chansey
 (imamo 50 kartica u .json)
 
 ili iskopirati imena od kartica koja pristizu
+
 
