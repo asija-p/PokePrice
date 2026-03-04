@@ -1,0 +1,14 @@
+.hover-3d {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.35s ease;
+}
+
+.hover-3d:hover {
+  transform: rotateX(8deg) rotateY(-8deg);
+}
+
+.hover-3d div {
+  position: absolute;
+  inset: 0;
+}

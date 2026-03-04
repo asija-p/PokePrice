@@ -26,6 +26,7 @@ const sources = [
   'Temu',
 ];
 
+let iterationCounter = 0;
 setInterval(async () => {
   if (currentIndex >= allCards.length) {
     console.log('All cards sent. Looping back to start.');
@@ -36,7 +37,19 @@ setInterval(async () => {
 
   const source = sources[Math.floor(Math.random() * sources.length)];
 
-  const price = parseFloat((10 + Math.random() * 90).toFixed(2));
+  iterationCounter++;
+
+  let basePrice = 10 + Math.random() * 90;
+
+  let spike = false;
+
+  // Roughly every ~10 seconds (3 iterations) with 40% chance
+  if (iterationCounter % 3 === 0 && Math.random() < 0.4) {
+    spike = true;
+    basePrice += 50 + Math.random() * 150; // spike magnitude
+  }
+
+  const price = parseFloat(basePrice.toFixed(2));
 
   const payload = {
     ...card,
